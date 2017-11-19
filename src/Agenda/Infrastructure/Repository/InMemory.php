@@ -33,11 +33,18 @@ class InMemory implements RepositoryStrategy
     
     public function update(Agenda $agenda)
     {
+        $this->checkIdExistence($agenda->getId());
         $this->agendas[$agenda->getId()] = $agenda;
     }
     
     public function delete(Agenda $agenda)
     {
+        $this->checkIdExistence($agenda->getId());
         unset($this->agendas[$agenda->getId()]);
+    }
+    
+    public function listAll(): array
+    {
+        return $this->agendas;
     }
 }

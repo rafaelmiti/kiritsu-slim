@@ -10,4 +10,5 @@ interface RepositoryStrategy
     public function read(int $id): Agenda;
     public function update(Agenda $agenda);
     public function delete(Agenda $agenda);
+    public function listAll(): array;
 }

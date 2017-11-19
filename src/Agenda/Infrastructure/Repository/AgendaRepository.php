@@ -2,34 +2,40 @@
 
 namespace Kiritsu\Agenda\Infrastructure\Repository;
 
+use Kiritsu\Agenda\Domain\Repository\AgendaRepositoryInterface;
 use Kiritsu\Agenda\Domain\Entity\Agenda;
 
-class AgendaRepository
+class AgendaRepository implements AgendaRepositoryInterface
 {
-    private $repo;
+    private $strategy;
     
-    public function __construct(RepositoryStrategy $repo)
+    public function __construct(RepositoryStrategy $strategy)
     {
-        $this->repo = $repo;
+        $this->strategy = $strategy;
     }
     
     public function create(Agenda $agenda): int
     {
-        return $this->repo->create($agenda);
+        return $this->strategy->create($agenda);
     }
 
     public function read(int $id): Agenda
     {
-        return $this->repo->read($id);
+        return $this->strategy->read($id);
     }
     
     public function update(Agenda $agenda)
     {
-        $this->repo->update($agenda);
+        $this->strategy->update($agenda);
     }
     
     public function delete(Agenda $agenda)
     {
-        $this->repo->delete($agenda);
+        $this->strategy->delete($agenda);
+    }
+    
+    public function listAll(): array
+    {
+        return $this->strategy->listAll();
     }
 }
